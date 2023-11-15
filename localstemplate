@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Locals Template to Clipboard</title>
+</head>
+<body>
+
+    <form id="jobForm">
+        <label for="jobTitle">Job:</label>
+        <input type="text" id="jobTitle" name="Job" placeholder="Enter job title">
+        <br>
+
+        <label for="jobWhen">When:</label>
+        <input type="text" id="jobWhen" name="When" placeholder="Enter when">
+        <br>
+
+        <label for="jobWhere">Where:</label>
+        <input type="text" id="jobWhere" name="Where" placeholder="Enter where">
+        <br>
+
+        <label for="teenCount">How many teens:</label>
+        <input type="number" id="teenCount" name="How many teens" placeholder="Enter number of teens">
+        <br>
+
+        <label for="jobCost">How much:</label>
+        <input type="text" id="jobCost" name="How much" placeholder="Enter cost">
+        <br>
+
+        <label for="paymentDate">When will I Pay:</label>
+        <input type="text" id="paymentDate" name="When will I Pay" placeholder="Enter payment date">
+        <br>
+
+        <label for="paymentMethod">How am I Paying:</label>
+        <input type="text" id="paymentMethod" name="How am I Paying" placeholder="Enter payment method">
+        <br>
+
+        <label for="extraDetails">Extra Details:</label>
+        <textarea id="extraDetails" name="Extra Details" placeholder="Enter extra details"></textarea>
+        <br>
+
+        <button type="button" onclick="copyFormToClipboard()">Copy Form to Clipboard</button>
+    </form>
+
+    <script>
+        function copyFormToClipboard() {
+            // Get the form element
+            const form = document.getElementById('jobForm');
+
+            // Serialize the form data into a string
+            const formData = new FormData(form);
+            let formDataString = '';
+
+            // Top of Template
+            formDataString += '🟢\nPlease read the entire Locals Template before proceeding.\n';
+			formDataString += '(CORRECT JOB POSTING RULES APPLY) \n \n';
+
+            // Form Data
+            for (const [key, value] of formData.entries()) {
+                formDataString += `${key}: ${value}\n`;
+            }
+
+            // Add the separator line
+            formDataString += '============================\n';
+
+            // Add the disclaimer
+            formDataString += 'DISCLAIMERS - V 2.1 REV NOV 10\n';
+            formDataString += '============================\n';
+            formDataString += '1. If you have questions or feel uneasy, talk to the admins immediately.\n';
+            formDataString += '2. See Locals Template Disclaimer in the Rules for the Rest, it still applies to all Locals Template Postings! 🔴\n';
+
+            // Use the Clipboard API to copy the form data string to the clipboard
+            navigator.clipboard.writeText(formDataString)
+                .then(() => {
+                    console.log('Form data copied to clipboard');
+                })
+                .catch((err) => {
+                    console.error('Unable to copy form data to clipboard', err);
+                });
+        }
+    </script>
+
+</body>
+</html>
